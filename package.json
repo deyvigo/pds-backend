@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./src/app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "2.8.5",
+    "express": "4.18.2",
+    "express-validator": "^7.0.1",
+    "mysql2": "3.9.1"
+  },
+  "devDependencies": {
+    "dotenv": "16.4.1",
+    "eslint": "8.56.0",
+    "nodemon": "3.0.3",
+    "standard": "17.1.0"
+  }
+}
