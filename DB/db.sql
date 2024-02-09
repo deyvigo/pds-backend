@@ -52,13 +52,13 @@ create table profesor
 (
     id_profesor    int auto_increment
         primary key,
-    nombres        varchar(40) not null,
-    apellidos      varchar(40) not null,
-    username       varchar(40) not null,
-    password       varchar(40) not null,
-    estado         tinyint(1)  not null,
-    id_autorizante int         null,
-    pr_rol         int         not null,
+    nombres        varchar(40)  not null,
+    apellidos      varchar(40)  not null,
+    username       varchar(40)  not null,
+    password       varchar(100) not null,
+    estado         tinyint(1)   not null,
+    id_autorizante int          null,
+    pr_rol         int          not null,
     constraint id_autorizante
         foreign key (id_autorizante) references administrador (id_administrador),
     constraint profesor_rol_id_rol_fk
@@ -130,3 +130,4 @@ create table nota_exposicion
     constraint id_ficha_nota
         foreign key (id_ficha_nota) references ficha_nota (id_ficha_nota)
 );
+
