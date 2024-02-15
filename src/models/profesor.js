@@ -18,11 +18,24 @@ const insertOne = async ({ nombres, apellidos, username, hashPass, estado, rol }
       'INSERT INTO profesor (nombres, apellidos, username, password, estado, pr_rol) VALUES (?,?,?,?,?,?)',
       [nombres, apellidos, username, hashPass, estado, rol]
     )
-    return JSON.stringify({ response: 'Registro exitoso' })
+    return { response: 'Registro exitoso' }
   } catch (e) {
     console.error(e)
     throw e
   }
 }
 
-module.exports = { getAll, insertOne }
+const updateStatusByUsername = async ({ username, estado, idAutorizante }) => {
+  try {
+    await connection.execute(
+      'UPDATE profesor SET estado = ?, id_autorizante = ? WHERE username = ?',
+      [estado, idAutorizante, username]
+    )
+    return { response: 'successfully updated' }
+  } catch (e) {
+    console.error(e)
+    throw e
+  }
+}
+
+module.exports = { getAll, insertOne, updateStatusByUsername }

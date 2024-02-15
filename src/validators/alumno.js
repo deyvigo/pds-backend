@@ -8,6 +8,10 @@ const validateCreateStudent = [
   check('apellidos')
     .exists()
     .notEmpty(),
+  check('nivel')
+    .exists()
+    .notEmpty()
+    .isNumeric(),
   check('username')
     .exists()
     .notEmpty(),

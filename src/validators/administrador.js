@@ -1,7 +1,7 @@
 const { check } = require('express-validator')
 const { validateResults } = require('../helpers/handleValidator')
 
-const validateCreateTeacher = [
+const validateCreateAdmin = [
   check('nombres')
     .exists()
     .notEmpty(),
@@ -18,22 +18,7 @@ const validateCreateTeacher = [
     .exists()
     .isNumeric()
     .notEmpty(),
-  check('estado')
-    .isIn(['activo', 'inactivo']),
   (req, res, next) => validateResults(req, res, next)
 ]
 
-const validateUpdateStatusTeacher = [
-  check('username')
-    .exists()
-    .notEmpty(),
-  check('idAutorizante')
-    .exists()
-    .notEmpty()
-    .isNumeric(),
-  check('estado')
-    .isIn(['activo', 'inactivo']),
-  (req, res, next) => validateResults(req, res, next)
-]
-
-module.exports = { validateCreateTeacher, validateUpdateStatusTeacher }
+module.exports = { validateCreateAdmin }
