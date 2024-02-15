@@ -1,5 +1,6 @@
-const { getAlumn, getTeacher, getAdmin } = require('../models/login')
-const { comparePass } = require('../helpers/bcrypt')
+const { getAlumn, getTeacher, getAdmin } = require('./../models/login')
+const { comparePass } = require('./../helpers/bcrypt')
+const { createJwt } = require('./../helpers/handleJwt')
 
 const loginAlumn = async (req, res) => {
   const { username, password } = req.body
@@ -11,8 +12,10 @@ const loginAlumn = async (req, res) => {
     return
   }
   const checkPass = await comparePass(password, response[0].password)
+  const { rol } = response[0]
   if (checkPass) {
-    res.send({ data: response })
+    const jwt = await createJwt({ username, rol })
+    res.send({ token: jwt })
   } else {
     res.status(409)
     res.send({ error: 'Invalid Password' })
@@ -28,8 +31,10 @@ const loginTeacher = async (req, res) => {
     return
   }
   const checkPass = await comparePass(password, response[0].password)
+  const { rol } = response[0]
   if (checkPass) {
-    res.send({ data: response })
+    const jwt = await createJwt({ username, rol })
+    res.send({ token: jwt })
   } else {
     res.status(409)
     res.send({ error: 'Invalid Password' })
@@ -46,8 +51,10 @@ const loginAdmin = async (req, res) => {
     return
   }
   const checkPass = await comparePass(password, response[0].password)
+  const { rol } = response[0]
   if (checkPass) {
-    res.send({ data: response })
+    const jwt = await createJwt({ username, rol })
+    res.send({ token: jwt })
   } else {
     res.status(409)
     res.send({ error: 'Invalid Password' })
