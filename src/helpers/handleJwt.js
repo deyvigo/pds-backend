@@ -2,11 +2,12 @@ const { verify, sign } = require('jsonwebtoken')
 
 const TOKEN_SECRET = process.env.TOKEN_SIGN
 
-const createJwt = async (user) => {
+const createJwt = async ({ id, username, rol }) => {
   const signUser = await sign(
     {
-      username: user.username,
-      role: user.rol
+      id,
+      username,
+      rol
     },
     TOKEN_SECRET
   )

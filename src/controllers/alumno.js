@@ -1,4 +1,4 @@
-const { getAll, insertOne } = require('../models/alumno')
+const { getAll, insertOne, changeLevelByUsername } = require('../models/alumno')
 const { encryptPass } = require('../helpers/bcrypt')
 const { getAlumn } = require('./../models/login')
 
@@ -21,4 +21,11 @@ const registerStudent = async (req, res) => {
   res.send(response)
 }
 
-module.exports = { getAllStudents, registerStudent }
+const changeNivel = async (req, res) => {
+  const { username, level } = req.body
+  const response = await changeLevelByUsername({ username, level })
+  res.status(200)
+  res.send(response)
+}
+
+module.exports = { getAllStudents, registerStudent, changeNivel }

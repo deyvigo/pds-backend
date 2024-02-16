@@ -27,4 +27,16 @@ const insertOne = async ({ nombres, apellidos, nivel, username, hashPass, rol })
   }
 }
 
-module.exports = { getAll, insertOne }
+const changeLevelByUsername = async ({ username, level }) => {
+  try {
+    await connection.execute(
+      'UPDATE alumno SET nivel = ? WHERE username = ?;',
+      [level, username]
+    )
+    return { response: 'Level updated' }
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+module.exports = { getAll, insertOne, changeLevelByUsername }

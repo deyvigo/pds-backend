@@ -12,12 +12,13 @@ const loginAlumn = async (req, res) => {
     return
   }
   const checkPass = await comparePass(password, response[0].password)
-  const { rol } = response[0]
+  const { rol, id } = response[0]
   if (checkPass) {
-    const jwt = await createJwt({ username, rol })
+    const jwt = await createJwt({ id, username, rol })
+    res.status(200)
     res.send({ token: jwt })
   } else {
-    res.status(409)
+    res.status(401)
     res.send({ error: 'Invalid Password' })
   }
 }
@@ -25,18 +26,20 @@ const loginAlumn = async (req, res) => {
 const loginTeacher = async (req, res) => {
   const { username, password } = req.body
   const response = await getTeacher(username)
-  if (response.length === 0 || response[0].estado === 0) {
+  if (response.length === 0 || response[0].estado === 'inactivo') {
     res.status(404)
     res.send({ error: 'User not found' })
     return
   }
   const checkPass = await comparePass(password, response[0].password)
-  const { rol } = response[0]
+  // console.log(response[0])
+  const { rol, id } = response[0]
   if (checkPass) {
-    const jwt = await createJwt({ username, rol })
+    const jwt = await createJwt({ id, username, rol })
+    res.status(200)
     res.send({ token: jwt })
   } else {
-    res.status(409)
+    res.status(401)
     res.send({ error: 'Invalid Password' })
   }
 }
@@ -51,12 +54,13 @@ const loginAdmin = async (req, res) => {
     return
   }
   const checkPass = await comparePass(password, response[0].password)
-  const { rol } = response[0]
+  const { rol, id } = response[0]
   if (checkPass) {
-    const jwt = await createJwt({ username, rol })
+    const jwt = await createJwt({ id, username, rol })
+    res.status(200)
     res.send({ token: jwt })
   } else {
-    res.status(409)
+    res.status(401)
     res.send({ error: 'Invalid Password' })
   }
 }
