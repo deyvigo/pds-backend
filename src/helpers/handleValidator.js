@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator')
 
+// Middleware para validar los resultados de las validaciones
 const validateResults = (req, res, next) => {
   try {
     validationResult(req).throw()

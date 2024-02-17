@@ -1,3 +1,8 @@
+/* 
+getAll -> Obtiene todos los alumnos de la base de datos con sus respectivos datos.
+insertOne -> Inserta un nuevo alumno en la base de datos.
+changeLevelByUsername -> Actualiza el nivel de un alumno en la base de datos según su nombre de usuario. */
+
 const { connection } = require('../services/connection.bd')
 
 const getAll = async () => {
