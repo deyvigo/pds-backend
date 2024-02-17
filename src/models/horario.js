@@ -16,7 +16,7 @@ const insertOne = async ({ dia, estado, horaInicio, horaFinal, idProfesor, idCur
 const getAll = async () => {
   try {
     const [response] = await connection.query(
-      'SELECT h.id_horario, h.dia_semana, h.estado, h.hora_inicio, h.hora_final, p.nombres, c.nombre FROM horario h JOIN profesor p ON p.id_profesor = h.id_profesor_cargo JOIN curso c ON c.id_curso = h.id_curso;'
+      'SELECT h.id_horario, h.dia_semana, h.estado, h.hora_inicio, h.hora_final, p.nombres as first, p.apellidos as last, c.nombre FROM horario h JOIN profesor p ON p.id_profesor = h.id_profesor_cargo JOIN curso c ON c.id_curso = h.id_curso;'
     )
     return response
   } catch (e) {
@@ -25,4 +25,17 @@ const getAll = async () => {
   }
 }
 
-module.exports = { insertOne, getAll }
+const changeStatusById = async ({ idHorario, estado }) => {
+  try {
+    await connection.execute(
+      'UPDATE horario SET estado = ? WHERE id_horario = ?;',
+      [estado, idHorario]
+    )
+    return { response: 'Estado cambiado' }
+  } catch (e) {
+    console.error(e)
+    throw e
+  }
+}
+
+module.exports = { insertOne, getAll, changeStatusById }

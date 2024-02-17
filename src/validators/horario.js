@@ -1,7 +1,7 @@
 const { check } = require('express-validator')
 const { validateResults } = require('../helpers/handleValidator')
 const DIAS_SEMANA = ['lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado', 'domingo']
-const ESTADO = ['activo', 'inactivo', 'en curso']
+const ESTADO = ['activo', 'inactivo', 'en curso', 'finalizado']
 
 const validateCreateHorario = [
   check('dia')
@@ -27,4 +27,14 @@ const validateCreateHorario = [
   (req, res, next) => validateResults(req, res, next)
 ]
 
-module.exports = { validateCreateHorario }
+const validateChangeStatus = [
+  check('idHorario')
+    .exists()
+    .notEmpty()
+    .isNumeric(),
+  check('estado')
+    .isIn(ESTADO),
+  (req, res, next) => validateResults(req, res, next)
+]
+
+module.exports = { validateCreateHorario, validateChangeStatus }

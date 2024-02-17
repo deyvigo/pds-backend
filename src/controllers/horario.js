@@ -1,4 +1,4 @@
-const { insertOne, getAll } = require('./../models/horario')
+const { insertOne, getAll, changeStatusById } = require('./../models/horario')
 
 const createHorario = async (req, res) => {
   const { dia, estado, horaInicio, horaFinal, idProfesor, idCurso } = req.body
@@ -13,4 +13,10 @@ const getAllHorario = async (req, res) => {
   res.send(response)
 }
 
-module.exports = { createHorario, getAllHorario }
+const changeStatus = async (req, res) => {
+  const { idHorario, estado } = req.body
+  const response = await changeStatusById({ idHorario, estado })
+  res.send(response)
+}
+
+module.exports = { createHorario, getAllHorario, changeStatus }

@@ -10,7 +10,7 @@ const alumnSession = async (req, res, next) => {
     }
     const token = req.headers.authorization.split(' ').pop()
     const dataToken = await verifyJwt(token)
-    if (dataToken.role === 'ROL_ALUMNO' || dataToken.role === 'ROL_ADMINISTRADOR') {
+    if (dataToken.rol === 'ROL_ALUMNO' || dataToken.rol === 'ROL_ADMINISTRADOR') {
       // console.log('Authorized')
       next()
       return
@@ -33,7 +33,7 @@ const teacherSession = async (req, res, next) => {
     }
     const token = req.headers.authorization.split(' ').pop()
     const dataToken = await verifyJwt(token)
-    if (dataToken.role === 'ROL_PROFESOR' || dataToken.role === 'ROL_ADMINISTRADOR') {
+    if (dataToken.rol === 'ROL_PROFESOR' || dataToken.rol === 'ROL_ADMINISTRADOR') {
       // console.log('Authorized')
       next()
       return
@@ -56,7 +56,7 @@ const adminSession = async (req, res, next) => {
     }
     const token = req.headers.authorization.split(' ').pop()
     const dataToken = await verifyJwt(token)
-    if (dataToken.role === 'ROL_ADMINISTRADOR') {
+    if (dataToken.rol === 'ROL_ADMINISTRADOR') {
       // console.log('Authorized')
       next()
       return
