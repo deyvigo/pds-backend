@@ -1,12 +1,12 @@
 const { Router } = require('express')
-const { createHorario, getAllHorario, changeStatus } = require('../controllers/horario')
-const { validateCreateHorario, validateChangeStatus } = require('./../validators/horario')
+const { createHorario, getAllHorarioByCourse, changeStatus } = require('../controllers/horario')
+const { validateCreateHorario, validateChangeStatus, validateIdCourse } = require('./../validators/horario')
 
 const router = Router()
 
 router.post('/', validateCreateHorario, createHorario)
 
-router.get('/', getAllHorario)
+router.get('/', validateIdCourse, getAllHorarioByCourse)
 
 router.put('/', validateChangeStatus, changeStatus)
 

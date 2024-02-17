@@ -13,12 +13,17 @@ const insertOne = async ({ dia, estado, horaInicio, horaFinal, idProfesor, idCur
   }
 }
 
-const getAll = async () => {
+const getByCourse = async (id) => {
   try {
-    const [response] = await connection.query(
-      'SELECT h.id_horario, h.dia_semana, h.estado, h.hora_inicio, h.hora_final, p.nombres as first, p.apellidos as last, c.nombre FROM horario h JOIN profesor p ON p.id_profesor = h.id_profesor_cargo JOIN curso c ON c.id_curso = h.id_curso;'
+    const [horario] = await connection.query(
+      'SELECT h.id_horario, h.dia_semana, h.estado, h.hora_inicio, h.hora_final, p.id_profesor FROM horario h JOIN profesor p ON p.id_profesor = h.id_profesor_cargo JOIN curso c ON c.id_curso = h.id_curso WHERE c.id_curso = ?;',
+      [id]
     )
-    return response
+    const [profesor] = await connection.query(
+      'SELECT p.id_profesor, p.nombres, p.apellidos FROM horario h JOIN profesor p ON p.id_profesor = h.id_profesor_cargo JOIN curso c ON c.id_curso = h.id_curso WHERE c.id_curso = ?;',
+      [id]
+    )
+    return [horario, profesor]
   } catch (e) {
     console.error(e)
     throw e
@@ -38,4 +43,4 @@ const changeStatusById = async ({ idHorario, estado }) => {
   }
 }
 
-module.exports = { insertOne, getAll, changeStatusById }
+module.exports = { insertOne, getByCourse, changeStatusById }

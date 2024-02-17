@@ -37,4 +37,12 @@ const validateChangeStatus = [
   (req, res, next) => validateResults(req, res, next)
 ]
 
-module.exports = { validateCreateHorario, validateChangeStatus }
+const validateIdCourse = [
+  check('idCurso')
+    .exists()
+    .notEmpty()
+    .isNumeric(),
+  (req, res, next) => validateResults(req, res, next)
+]
+
+module.exports = { validateCreateHorario, validateChangeStatus, validateIdCourse }

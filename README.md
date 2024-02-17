@@ -30,7 +30,13 @@ npm run dev
 
 <span style="color:red">GET</span> http://localhost:3210/alumno **Obtiene TODOS los estudiantes**
 
-<span style="color:red">GET</span> http://localhost:3210/horario **Obtiene TODOS los horarios**
+<span style="color:red">GET</span> http://localhost:3210/horario **Obtiene TODOS los horarios POR CURSO**
+
+```javascript
+  data = {
+    idCurso
+  }
+```
 
 <span style="color:red">PUT</span> http://localhost:3210/profesor/autorizar **Acepta cuenta de profesor**
 
