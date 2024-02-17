@@ -9,7 +9,20 @@ const createCourse = async (req, res) => {
 
 const getAllCourses = async (req, res) => {
   const response = await getAll()
-  res.send(response)
+  // response.map((c) => {
+  //   c.id_curso,
+  //   c.nombre,
+  //   c.codigo_curso,
+  //   c.nivel,
+  //   c.requisito,
+  //   creador: response[1].filter( a => {
+  //     return a.id_administrador === c.id_creador_curso
+  //   }).map( a => {
+  //     a.nombres,
+  //     a.apellidos
+  //   })
+  // }
+  // res.send(response)
 }
 
 module.exports = { createCourse, getAllCourses }

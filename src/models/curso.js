@@ -15,10 +15,13 @@ const createOne = async ({ codigo, nombre, nivel, requisito, idCreador }) => {
 
 const getAll = async () => {
   try {
-    const [data] = await connection.query(
-      'SELECT c.id_curso, c.nombre, c.codigo_curso, c.nivel, c1.nombre as requisito, a.nombres as nombre_creador FROM curso c LEFT JOIN curso c1 ON c.id_requisito = c1.id_curso JOIN administrador a ON a.id_administrador = c.id_creador_curso;'
+    const [curso] = await connection.query(
+      'SELECT c.id_curso, c.nombre, c.codigo_curso, c.nivel, c1.nombre as requisito, c.id_creador_curso FROM curso c LEFT JOIN curso c1 ON c.id_requisito = c1.id_curso JOIN administrador a ON a.id_administrador = c.id_creador_curso;'
     )
-    return data
+    const [profesor] = await connection.query(
+      'SELECT a.id_administrador,a.nombres, a.apellidos FROM curso c LEFT JOIN curso c1 ON c.id_requisito = c1.id_curso JOIN administrador a ON a.id_administrador = c.id_creador_curso;'
+    )
+    return [curso, profesor]
   } catch (e) {
     console.error(e)
     throw e

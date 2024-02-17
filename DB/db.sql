@@ -30,6 +30,7 @@ create table alumno
     apellidos varchar(40)  not null,
     username  varchar(40)  not null,
     password  varchar(100) not null,
+    nivel     int          not null,
     al_rol    int          not null,
     constraint alumno_rol_id_rol_fk
         foreign key (al_rol) references rol (id_rol)
@@ -42,8 +43,10 @@ create table curso
     codigo_curso     varchar(10) not null,
     nombre           varchar(40) not null,
     nivel            int         not null,
-    requisito        varchar(10) null,
+    id_requisito     int         null,
     id_creador_curso int         not null,
+    constraint curso_requisito
+        foreign key (id_requisito) references curso (id_curso),
     constraint id_creador_curso
         foreign key (id_creador_curso) references administrador (id_administrador)
 );
@@ -56,7 +59,7 @@ create table profesor
     apellidos      varchar(40)  not null,
     username       varchar(40)  not null,
     password       varchar(100) not null,
-    estado         tinyint(1)   not null,
+    estado         varchar(15)  not null,
     id_autorizante int          null,
     pr_rol         int          not null,
     constraint id_autorizante
@@ -70,6 +73,7 @@ create table horario
     id_horario        int auto_increment
         primary key,
     dia_semana        varchar(15) not null,
+    estado            varchar(15) not null,
     hora_inicio       time        not null,
     hora_final        time        not null,
     id_profesor_cargo int         not null,
@@ -90,6 +94,20 @@ create table alumno_horario
         foreign key (id_alumn) references alumno (id_alumno),
     constraint id_hora
         foreign key (id_hora) references horario (id_horario)
+);
+
+create table asistencia
+(
+    id_asistencia int auto_increment
+        primary key,
+    id_alumno     int        not null,
+    id_horario    int        not null,
+    asistencia    varchar(1) null,
+    fecha         date       not null,
+    constraint asistencia_alumno
+        foreign key (id_alumno) references alumno (id_alumno),
+    constraint asistencia_horario
+        foreign key (id_horario) references horario (id_horario)
 );
 
 create table tema
