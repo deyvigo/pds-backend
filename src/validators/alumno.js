@@ -25,4 +25,15 @@ const validateCreateStudent = [
   (req, res, next) => validateResults(req, res, next)
 ]
 
-module.exports = { validateCreateStudent }
+const validateChangeNivel = [
+  check('level')
+    .exists()
+    .notEmpty()
+    .isNumeric(),
+  check('username')
+    .exists()
+    .notEmpty(),
+  (req, res, next) => validateResults(req, res, next)
+]
+
+module.exports = { validateCreateStudent, validateChangeNivel }

@@ -16,7 +16,7 @@ const loginAlumn = async (req, res) => {
   if (checkPass) {
     const jwt = await createJwt({ id, username, rol })
     res.status(200)
-    res.send({ token: jwt })
+    res.send({ id, rol, username, token: jwt })
   } else {
     res.status(401)
     res.send({ error: 'Invalid Password' })
@@ -37,7 +37,7 @@ const loginTeacher = async (req, res) => {
   if (checkPass) {
     const jwt = await createJwt({ id, username, rol })
     res.status(200)
-    res.send({ token: jwt })
+    res.send({ id, rol, username, token: jwt })
   } else {
     res.status(401)
     res.send({ error: 'Invalid Password' })
@@ -58,7 +58,7 @@ const loginAdmin = async (req, res) => {
   if (checkPass) {
     const jwt = await createJwt({ id, username, rol })
     res.status(200)
-    res.send({ token: jwt })
+    res.send({ id, rol, username, token: jwt })
   } else {
     res.status(401)
     res.send({ error: 'Invalid Password' })
