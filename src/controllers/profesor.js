@@ -1,6 +1,6 @@
 // Importamos los módulos necesarios, incluyendo modelos de base de datos para operaciones con profesores,
 // la función para cifrar contraseñas y la función para obtener información de inicio de sesión de profesores.
-const { getAll, insertOne, updateStatusByUsername } = require('../models/profesor')
+const { getAll, insertOne, updateStatusById } = require('../models/profesor')
 const { encryptPass } = require('../helpers/bcrypt')
 const { getTeacher } = require('./../models/login')
 
@@ -10,7 +10,7 @@ const getAllTeachers = async (req, res) => {
   res.send(response)
 }
 
-// func para registrar nuevos profesores recibiendo los datos 
+// func para registrar nuevos profesores recibiendo los datos
 const registerTeacher = async (req, res) => {
   const { nombres, apellidos, username, password, estado, rol } = req.body
   const hashPass = await encryptPass(password)
@@ -28,9 +28,9 @@ const registerTeacher = async (req, res) => {
 
 // con esta función otorgamos permisos a la cuenta de un profesor
 const grantPermitToTeacherAccount = async (req, res) => {
-  const { username, idAutorizante, estado } = req.body
+  const { idProfesor, idAutorizante, estado } = req.body
   // Actualizamos el estado de la cuenta del profesor en la base de datos.
-  const response = await updateStatusByUsername({ username, estado, idAutorizante })
+  const response = await updateStatusById({ idProfesor, estado, idAutorizante })
   res.send(response)
 }
 

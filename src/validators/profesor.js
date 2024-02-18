@@ -24,9 +24,10 @@ const validateCreateTeacher = [
 ]
 
 const validateUpdateStatusTeacher = [
-  check('username')
+  check('idProfesor')
     .exists()
-    .notEmpty(),
+    .notEmpty()
+    .isNumeric(),
   check('idAutorizante')
     .exists()
     .notEmpty()

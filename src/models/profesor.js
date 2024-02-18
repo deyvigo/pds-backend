@@ -25,11 +25,11 @@ const insertOne = async ({ nombres, apellidos, username, hashPass, estado, rol }
   }
 }
 
-const updateStatusByUsername = async ({ username, estado, idAutorizante }) => {
+const updateStatusById = async ({ idProfesor, estado, idAutorizante }) => {
   try {
     await connection.execute(
-      'UPDATE profesor SET estado = ?, id_autorizante = ? WHERE username = ?',
-      [estado, idAutorizante, username]
+      'UPDATE profesor SET estado = ?, id_autorizante = ? WHERE id_profesor = ?',
+      [estado, idAutorizante, idProfesor]
     )
     return { response: 'successfully updated' }
   } catch (e) {
@@ -38,4 +38,4 @@ const updateStatusByUsername = async ({ username, estado, idAutorizante }) => {
   }
 }
 
-module.exports = { getAll, insertOne, updateStatusByUsername }
+module.exports = { getAll, insertOne, updateStatusById }

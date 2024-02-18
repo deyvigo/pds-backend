@@ -42,7 +42,7 @@ npm run dev
 
 ```javascript
   data = {
-    username, 
+    idProfesor,
     idAutorizante, // id_administrador que acepta la cuenta
     estado // 'activo' o 'inactivo'
   }
