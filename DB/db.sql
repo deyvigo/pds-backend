@@ -86,6 +86,8 @@ create table horario
     ciclo_id          int         not null,
     id_profesor_cargo int         not null,
     id_curso          int         not null,
+    constraint horario_ciclo_id_ciclo_fk
+        foreign key (ciclo_id) references ciclo (id_ciclo),
     constraint id_curso
         foreign key (id_curso) references curso (id_curso),
     constraint id_profesor_cargo
