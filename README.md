@@ -92,3 +92,49 @@ npm run dev
     descripcion
   }
 ```
+
+### Profesor
+
+<span style="color:red">GET</span> http://localhost:3210/horario/profesor **Obtiene TODOS sus horarios en curso según profesor**
+
+```javascript
+  data = {
+    idProfesor
+  }
+```
+
+<span style="color:red">GET</span> http://localhost:3210/horario/alumno **Obtiene TODOS los alumnos matriculados a un horario**
+
+```javascript
+  data = {
+    idHorario
+  }
+```
+
+<span style="color:red">POST</span> http://localhost:3210/asistencia **Guarda los datos de una asistencia**
+
+```javascript
+  // ejemplo de lo que se tiene que mandar
+  data = {
+    data: [
+      {
+        "idAlumno": 1,
+        "idHorario": 1,
+        "asistencia": "P",
+        "fecha": "2024-02-19"
+      },
+      {
+        "idAlumno": 2,
+        "idHorario": 1,
+        "asistencia": "T",
+        "fecha": "2024-02-19"
+      }
+    ]
+  }
+```
+
+# FALTAN
+
+<span style="color:red">GET</span> http://localhost:3210/tema **Obtiene todos temas de un curso**
+
+<span style="color:red">POST</span> http://localhost:3210/fichanota **Guarda las notas**

@@ -1,4 +1,4 @@
-const { insertOne, getByCourse, changeStatusById } = require('./../models/horario')
+const { insertOne, getByCourse, changeStatusById, getHorarioByIdTeacher, getAllAlumnByHorario } = require('./../models/horario')
 const { getAllActives } = require('./../models/profesor')
 
 const createHorario = async (req, res) => {
@@ -40,4 +40,16 @@ const changeStatus = async (req, res) => {
   res.send(response)
 }
 
-module.exports = { createHorario, getAllHorarioByCourse, changeStatus }
+const getAllHorarioByTeacher = async (req, res) => {
+  const { idProfesor } = req.body
+  const response = await getHorarioByIdTeacher({ idProfesor })
+  res.send(response)
+}
+
+const getAlumnsByHorario = async (req, res) => {
+  const { idHorario } = req.body
+  const response = await getAllAlumnByHorario({ idHorario })
+  res.send(response)
+}
+
+module.exports = { createHorario, getAllHorarioByCourse, changeStatus, getAllHorarioByTeacher, getAlumnsByHorario }

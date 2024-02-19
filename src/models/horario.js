@@ -39,4 +39,30 @@ const changeStatusById = async ({ idHorario, estado }) => {
   }
 }
 
-module.exports = { insertOne, getByCourse, changeStatusById }
+const getHorarioByIdTeacher = async ({ idProfesor }) => {
+  try {
+    const [response] = await connection.query(
+      'SELECT c.codigo_curso, c.nombre, h.id_horario, h.dia_semana, h.hora_inicio, h.hora_final, h.ciclo, h.estado FROM horario h JOIN curso c ON c.id_curso = h.id_curso WHERE h.id_profesor_cargo = ? AND h.estado = "en curso";',
+      [idProfesor]
+    )
+    return response
+  } catch (e) {
+    console.error(e)
+    throw e
+  }
+}
+
+const getAllAlumnByHorario = async ({ idHorario }) => {
+  try {
+    const [response] = await connection.query(
+      'SELECT ah.id_alumno_horario, a.nombres, a.apellidos FROM alumno_horario ah JOIN alumno a ON ah.id_alumn = a.id_alumno JOIN horario h ON h.id_horario = ah.id_horario WHERE ah.id_horario = ?',
+      [idHorario]
+    )
+    return response
+  } catch (e) {
+    console.error(e)
+    throw e
+  }
+}
+
+module.exports = { insertOne, getByCourse, changeStatusById, getHorarioByIdTeacher, getAllAlumnByHorario }

@@ -13,7 +13,7 @@ const getAllStudents = async (req, res) => {
 // Función para registrar un nuevo estudiante
 const registerStudent = async (req, res) => {
   const { nombres, apellidos, nivel, username, password, rol } = req.body
-  //ciframos la contraseña
+  //  ciframos la contraseña
   const hashPass = await encryptPass(password)
   // console.log({ nombres, apellidos, username, hashPass, rol })
   const userAlumn = await getAlumn(username)
@@ -21,8 +21,8 @@ const registerStudent = async (req, res) => {
     res.send({ error: 'User already exists' })
     return
   }
-  
-  //Insertamos en la base de datos
+
+  //  Insertamos en la base de datos
   const response = await insertOne({ nombres, apellidos, nivel, username, hashPass, rol })
   res.status(201)
   res.send(response)

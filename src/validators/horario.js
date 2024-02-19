@@ -45,4 +45,20 @@ const validateIdCourse = [
   (req, res, next) => validateResults(req, res, next)
 ]
 
-module.exports = { validateCreateHorario, validateChangeStatus, validateIdCourse }
+const validateIdTeacher = [
+  check('idProfesor')
+    .exists()
+    .notEmpty()
+    .isNumeric(),
+  (req, res, next) => validateResults(req, res, next)
+]
+
+const validateIdHorario = [
+  check('idHorario')
+    .exists()
+    .notEmpty()
+    .isNumeric(),
+  (req, res, next) => validateResults(req, res, next)
+]
+
+module.exports = { validateCreateHorario, validateChangeStatus, validateIdCourse, validateIdTeacher, validateIdHorario }
