@@ -55,7 +55,7 @@ npm run dev
     codigo, 
     nombre, 
     nivel, // 1, 2, 3
-    requisito, // id_curso que es requisito
+    requisito, // id_curso que es requisito, null si no hay requisito
     idCreador // id_administrador que crea la cuenta
   }
 ```
@@ -68,7 +68,7 @@ npm run dev
     estado, // inactivo, activo, en curso, finalizado
     horaInicio, // Formato: 24 horas HH:MM
     horaFinal,
-    ciclo, // ejemplo: 2024-1, 2024-2 y así
+    ciclo, // id_horario Nota: usar un input select para mostrar los ciclos y obtener los id
     idProfesor, // profesor a cargo
     idCurso 
   }

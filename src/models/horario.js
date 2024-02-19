@@ -3,7 +3,7 @@ const { connection } = require('./../services/connection.bd')
 const insertOne = async ({ dia, estado, horaInicio, horaFinal, ciclo, idProfesor, idCurso }) => {
   try {
     await connection.execute(
-      'INSERT INTO horario (dia_semana, estado, hora_inicio, hora_final, ciclo, id_profesor_cargo, id_curso) VALUES (?,?,?,?,?,?,?)',
+      'INSERT INTO horario (dia_semana, estado, hora_inicio, hora_final, ciclo_id, id_profesor_cargo, id_curso) VALUES (?,?,?,?,?,?,?)',
       [dia, estado, horaInicio, horaFinal, ciclo, idProfesor, idCurso]
     )
     return { response: 'Registro exitoso' }
@@ -16,7 +16,7 @@ const insertOne = async ({ dia, estado, horaInicio, horaFinal, ciclo, idProfesor
 const getByCourse = async (id) => {
   try {
     const [horario] = await connection.query(
-      'SELECT h.id_horario, h.dia_semana, h.estado, h.hora_inicio, h.hora_final, h.ciclo, p.id_profesor FROM horario h JOIN profesor p ON p.id_profesor = h.id_profesor_cargo JOIN curso c ON c.id_curso = h.id_curso WHERE c.id_curso = ?;',
+      'SELECT h.id_horario, h.dia_semana, h.estado, h.hora_inicio, h.hora_final, ci.ciclo, p.id_profesor FROM horario h JOIN profesor p ON p.id_profesor = h.id_profesor_cargo JOIN curso c ON c.id_curso = h.id_curso JOIN ciclo ci ON ci.id_ciclo = h.ciclo_id WHERE c.id_curso = ?;',
       [id]
     )
     return horario
@@ -42,7 +42,7 @@ const changeStatusById = async ({ idHorario, estado }) => {
 const getHorarioByIdTeacher = async ({ idProfesor }) => {
   try {
     const [response] = await connection.query(
-      'SELECT c.codigo_curso, c.nombre, h.id_horario, h.dia_semana, h.hora_inicio, h.hora_final, h.ciclo, h.estado FROM horario h JOIN curso c ON c.id_curso = h.id_curso WHERE h.id_profesor_cargo = ? AND h.estado = "en curso";',
+      'SELECT c.codigo_curso, c.nombre, h.id_horario, h.dia_semana, h.hora_inicio, h.hora_final, ci.ciclo, h.estado FROM horario h JOIN curso c ON c.id_curso = h.id_curso JOIN ciclo ci ON ci.id_ciclo = h.ciclo_id WHERE h.id_profesor_cargo = ? AND h.estado = "en curso";',
       [idProfesor]
     )
     return response

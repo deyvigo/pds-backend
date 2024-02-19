@@ -1,7 +1,7 @@
 const { verifyJwt } = require('./../helpers/handleJwt')
 
 // Estas 3 funciones son Middleware que permiten verificar las sesiones antes de permitir el acceso
-//    Verifican  si se ha proporcionado un token de autorización en la cabecera de la solicitud 
+//    Verifican  si se ha proporcionado un token de autorización en la cabecera de la solicitud
 //    extraen el token de la cabecera de la solicitud y lo verifican utilizando la función verifyJwt
 //    manejan los casos en los que no se proporciona un token
 //    evuelven un estado de respuesta adecuado

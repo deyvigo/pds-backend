@@ -16,6 +16,10 @@ const validateCreateHorario = [
     .exists()
     .notEmpty()
     .isTime(),
+  check('ciclo')
+    .exists()
+    .notEmpty()
+    .isNumeric(),
   check('idProfesor')
     .exists()
     .notEmpty()

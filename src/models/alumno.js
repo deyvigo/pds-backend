@@ -1,4 +1,4 @@
-/* 
+/*
 getAll -> Obtiene todos los alumnos de la base de datos con sus respectivos datos.
 insertOne -> Inserta un nuevo alumno en la base de datos.
 changeLevelByUsername -> Actualiza el nivel de un alumno en la base de datos según su nombre de usuario. */
@@ -22,10 +22,10 @@ const getAll = async () => {
 const insertOne = async ({ nombres, apellidos, nivel, username, hashPass, rol }) => {
   try {
     await connection.execute(
-      'INSERT INTO alumno (nombres, apellidos, nivel, username, password, al_rol) VALUES (?,?,?,?,?);',
+      'INSERT INTO alumno (nombres, apellidos, nivel, username, password, al_rol) VALUES (?,?,?,?,?,?);',
       [nombres, apellidos, nivel, username, hashPass, rol]
     )
-    return JSON.stringify({ response: 'Registro exitoso' })
+    return { response: 'Registro exitoso' }
   } catch (e) {
     console.error(e)
     throw e
