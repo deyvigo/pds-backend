@@ -2,6 +2,13 @@ create database railway;
 
 use railway;
 
+create table ciclo
+(
+    id_ciclo int auto_increment
+        primary key,
+    ciclo    varchar(10) not null
+);
+
 create table rol
 (
     id_rol int auto_increment
@@ -76,6 +83,7 @@ create table horario
     estado            varchar(15) not null,
     hora_inicio       time        not null,
     hora_final        time        not null,
+    ciclo_id          int         not null,
     id_profesor_cargo int         not null,
     id_curso          int         not null,
     constraint id_curso
@@ -89,11 +97,11 @@ create table alumno_horario
     id_alumno_horario int auto_increment
         primary key,
     id_alumn          int not null,
-    id_hora           int not null,
+    id_horario        int not null,
     constraint alumn_horario_fk
         foreign key (id_alumn) references alumno (id_alumno),
     constraint id_hora
-        foreign key (id_hora) references horario (id_horario)
+        foreign key (id_horario) references horario (id_horario)
 );
 
 create table asistencia
@@ -129,7 +137,10 @@ create table ficha_nota
     nota_eva_oral    int null,
     nota_eva_escrita int null,
     id_tema          int not null,
+    id_ciclo         int not null,
     id_alumno        int not null,
+    constraint ficha_nota_ciclo_id_ciclo_fk
+        foreign key (id_ciclo) references ciclo (id_ciclo),
     constraint id_alumno
         foreign key (id_alumno) references alumno (id_alumno),
     constraint id_tema
