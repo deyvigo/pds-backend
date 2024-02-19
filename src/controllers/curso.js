@@ -1,4 +1,5 @@
 const { createOne, getAll } = require('./../models/curso')
+const { getAllAdmin } = require('./../models/administrador')
 
 const createCourse = async (req, res) => {
   const { codigo, nombre, nivel, requisito, idCreador } = req.body
@@ -8,7 +9,9 @@ const createCourse = async (req, res) => {
 }
 
 const getAllCourses = async (req, res) => {
-  const data = await getAll()
+  const curso = await getAll()
+  const profesor = await getAllAdmin()
+  const data = [curso, profesor]
   const response = {
     curso: data[0].map((c) => ({
       id_curso: c.id_curso,

@@ -12,6 +12,18 @@ const getAll = async () => {
   }
 }
 
+const getAllActives = async () => {
+  try {
+    const [profesor] = await connection.query(
+      'SELECT id_profesor, nombres, apellidos FROM profesor WHERE estado = "activo";'
+    )
+    return [profesor]
+  } catch (e) {
+    console.error(e)
+    throw e
+  }
+}
+
 const insertOne = async ({ nombres, apellidos, username, hashPass, estado, rol }) => {
   try {
     await connection.execute(
@@ -38,4 +50,4 @@ const updateStatusById = async ({ idProfesor, estado, idAutorizante }) => {
   }
 }
 
-module.exports = { getAll, insertOne, updateStatusById }
+module.exports = { getAll, insertOne, updateStatusById, getAllActives }

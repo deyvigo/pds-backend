@@ -20,4 +20,16 @@ const insertOne = async ({ nombres, apellidos, username, hashPass, rol }) => {
   }
 }
 
-module.exports = { insertOne }
+const getAllAdmin = async () => {
+  try {
+    const [admin] = await connection.query(
+      'SELECT id_administrador, nombres, apellidos FROM administrador;'
+    )
+    return admin
+  } catch (e) {
+    console.error(e)
+    throw e
+  }
+}
+
+module.exports = { insertOne, getAllAdmin }

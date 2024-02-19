@@ -64,10 +64,11 @@ npm run dev
 
 ```javascript
   data = {
-    dia, //lunes, martes ...
-    estado, //inactivo, activo, en curso, finalizado
+    dia, // lunes, martes ...
+    estado, // inactivo, activo, en curso, finalizado
     horaInicio, // Formato: 24 horas HH:MM
     horaFinal,
+    ciclo, // ejemplo: 2024-1, 2024-2 y así
     idProfesor, // profesor a cargo
     idCurso 
   }
@@ -78,7 +79,7 @@ npm run dev
 ```javascript
   data = {
     idHorario,
-    estado //inactivo, activo, en curso, finalizado
+    estado // inactivo, activo, en curso, finalizado
   }
 ```
 
