@@ -30,6 +30,8 @@ npm run dev
 
 <span style="color:red">GET</span> http://localhost:3210/alumno **Obtiene TODOS los estudiantes**
 
+<span style="color:red">GET</span> http://localhost:3210/ciclo **Obtiene TODOS los ciclos**
+
 <span style="color:red">GET</span> http://localhost:3210/tema **Obtiene TODOS los temas POR CURSO**
 
 ```javascript
@@ -53,6 +55,14 @@ npm run dev
     idProfesor,
     idAutorizante, // id_administrador que acepta la cuenta
     estado // 'activo' o 'inactivo'
+  }
+```
+
+<span style="color:red">POST</span> http://localhost:3210/ciclo **Crea un ciclo**
+
+```javascript
+  data = {
+    ciclo // string, ejemplo: 2024-1
   }
 ```
 
@@ -149,8 +159,81 @@ npm run dev
   }
 ```
 
-## FALTA
 <span style="color:red">POST</span> http://localhost:3210/fichanota **Guarda las notas**
 
+```javascript
+  data = {
+    "data": [
+      {
+        "idAlumno": 1,
+        "idTema": 3,
+        "idCiclo": 1,
+        "notaEvaOral": 13,
+        "notaEvaEscrita": 12,
+        "puntosTiempo": 1,
+        "puntosContenido": 4,
+        "puntosHabComu": 5,
+        "puntosEstructura": 4 
+      },
+      {
+        "idAlumno": 3,
+        "idTema": 3,
+        "idCiclo": 1,
+        "notaEvaOral": 14,
+        "notaEvaEscrita": 15,
+        "puntosTiempo": 2,
+        "puntosContenido": 4,
+        "puntosHabComu": 5,
+        "puntosEstructura": 3 
+      }
+    ]
+  }
+```
+
 ### Alumno
+
+**Para matricularse: mostrar los horarios disponibles por nivel y que estén activos**
+
+<span style="color:red">GET</span> http://localhost:3210/horario/nivel **Obtiene los horarios**
+
+```javascript
+  data = {
+    nivel // nivel del alumno
+    idALumno
+  }
+```
+
+<span style="color:red">POST</span> http://localhost:3210/matricula **Guarda las matrículas**
+
+```javascript
+  // ejemplo de lo que se debe enviar
+  data = {
+    "data": [
+      {
+        "idAlumno": 1,
+        "idHorario": 3
+      },
+      {
+        "idAlumno": 1,
+        "idHorario": 4
+      }
+    ]
+  }
+```
+
+<span style="color:red">GET</span> http://localhost:3210/matricula **Devuelve las matrículas de un alumno de los horarios que están activos o en curso**
+
+```javascript
+  data = {
+    idAlumno
+  }
+```
+
+<span style="color:red">GET</span> http://localhost:3210/fichanota/finalizado **Devuelve los horarios en estado <span style="color:green">finalizado</span>, el curso, los temas y las notas en cada tema POR ALUMNO**
+
+```javascript
+  data = {
+    idAlumno
+  }
+```
 

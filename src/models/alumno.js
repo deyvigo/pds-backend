@@ -32,11 +32,11 @@ const insertOne = async ({ nombres, apellidos, nivel, username, hashPass, rol })
   }
 }
 
-const changeLevelByUsername = async ({ username, level }) => {
+const changeLevelByUsername = async ({ username, nivel }) => {
   try {
     await connection.execute(
       'UPDATE alumno SET nivel = ? WHERE username = ?;',
-      [level, username]
+      [nivel, username]
     )
     return { response: 'Level updated' }
   } catch (e) {
@@ -44,4 +44,16 @@ const changeLevelByUsername = async ({ username, level }) => {
   }
 }
 
-module.exports = { getAll, insertOne, changeLevelByUsername }
+const getById = async ({ idAlumno }) => {
+  try {
+    const [response] = await connection.query(
+      'SELECT a.id_alumno, a.nombres, a.apellidos, a.nivel FROM alumno a WHERE id_alumno = ?;',
+      [idAlumno]
+    )
+    return response
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+module.exports = { getAll, insertOne, changeLevelByUsername, getById }

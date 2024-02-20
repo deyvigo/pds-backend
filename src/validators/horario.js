@@ -65,4 +65,23 @@ const validateIdHorario = [
   (req, res, next) => validateResults(req, res, next)
 ]
 
-module.exports = { validateCreateHorario, validateChangeStatus, validateIdCourse, validateIdTeacher, validateIdHorario }
+const validateNivel = [
+  check('nivel')
+    .exists()
+    .notEmpty()
+    .isNumeric(),
+  check('idAlumno')
+    .exists()
+    .notEmpty()
+    .isNumeric(),
+  (req, res, next) => validateResults(req, res, next)
+]
+
+module.exports = {
+  validateCreateHorario,
+  validateChangeStatus,
+  validateIdCourse,
+  validateIdTeacher,
+  validateIdHorario,
+  validateNivel
+}

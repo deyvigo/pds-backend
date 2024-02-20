@@ -65,4 +65,16 @@ const getAllAlumnByHorario = async ({ idHorario }) => {
   }
 }
 
-module.exports = { insertOne, getByCourse, changeStatusById, getHorarioByIdTeacher, getAllAlumnByHorario }
+const getActivesByNivel = async ({ nivel }) => {
+  try {
+    const [response] = await connection.query(
+      'SELECT h.id_horario, h.dia_semana, h.hora_inicio, h.hora_final, h.estado, ci.ciclo, c.nivel, c.nombre, h.id_profesor_cargo FROM horario h JOIN curso c ON c.id_curso = h.id_curso JOIN ciclo ci ON ci.id_ciclo = h.ciclo_id WHERE h.estado = "activo" AND c.nivel = ?;',
+      [nivel]
+    )
+    return response
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+module.exports = { insertOne, getByCourse, changeStatusById, getHorarioByIdTeacher, getAllAlumnByHorario, getActivesByNivel }

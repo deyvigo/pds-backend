@@ -30,8 +30,8 @@ const registerStudent = async (req, res) => {
 
 // Función para cambiar el nivel de estudiantes
 const changeNivel = async (req, res) => {
-  const { username, level } = req.body
-  const response = await changeLevelByUsername({ username, level })
+  const { username, nivel } = req.body
+  const response = await changeLevelByUsername({ username, nivel })
   res.status(200)
   res.send(response)
 }

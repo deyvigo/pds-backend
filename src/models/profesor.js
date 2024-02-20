@@ -17,7 +17,7 @@ const getAllActives = async () => {
     const [profesor] = await connection.query(
       'SELECT id_profesor, nombres, apellidos FROM profesor WHERE estado = "activo";'
     )
-    return [profesor]
+    return profesor
   } catch (e) {
     console.error(e)
     throw e
