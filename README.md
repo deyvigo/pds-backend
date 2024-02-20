@@ -30,6 +30,14 @@ npm run dev
 
 <span style="color:red">GET</span> http://localhost:3210/alumno **Obtiene TODOS los estudiantes**
 
+<span style="color:red">GET</span> http://localhost:3210/tema **Obtiene TODOS los temas POR CURSO**
+
+```javascript
+  data = {
+    idCurso
+  }
+```
+
 <span style="color:red">GET</span> http://localhost:3210/horario **Obtiene TODOS los horarios POR CURSO**
 
 ```javascript
@@ -133,8 +141,16 @@ npm run dev
   }
 ```
 
-# FALTAN
+<span style="color:red">GET</span> http://localhost:3210/tema **Obtiene TODOS los temas POR CURSO**
 
-<span style="color:red">GET</span> http://localhost:3210/tema **Obtiene todos temas de un curso**
+```javascript
+  data = {
+    idCurso
+  }
+```
 
+## FALTA
 <span style="color:red">POST</span> http://localhost:3210/fichanota **Guarda las notas**
+
+### Alumno
+

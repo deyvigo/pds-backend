@@ -13,4 +13,16 @@ const insertOne = async ({ idCurso, nombre, descripcion }) => {
   }
 }
 
-module.exports = { insertOne }
+const getByIdCourse = async ({ idCurso }) => {
+  try {
+    const [response] = await connection.query(
+      'SELECT id_tema, nombre, descripcion FROM tema WHERE id_curso_pertenece = ?;',
+      [idCurso]
+    )
+    return response
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+module.exports = { insertOne, getByIdCourse }
