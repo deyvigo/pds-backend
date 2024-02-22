@@ -6,7 +6,9 @@ create table ciclo
 (
     id_ciclo int auto_increment
         primary key,
-    ciclo    varchar(10) not null
+    ciclo    varchar(20) not null,
+    inicio   date        not null,
+    fin      date        not null
 );
 
 create table rol
@@ -52,7 +54,7 @@ create table curso
     nivel            int         not null,
     id_requisito     int         null,
     id_creador_curso int         not null,
-    constraint curso_requisito
+    constraint curso_curso_id_curso_fk
         foreign key (id_requisito) references curso (id_curso),
     constraint id_creador_curso
         foreign key (id_creador_curso) references administrador (id_administrador)
