@@ -15,7 +15,7 @@ npm run dev
 
 ### Administrador
 
-<span style="color:red">POST</span> http://localhost:3210/login/profesor **Inicia sesion**
+<span style="color:red">POST</span> http://localhost:3210/login/administrador **Inicia sesion**
 
 ```javascript
   data = {
@@ -32,13 +32,7 @@ npm run dev
 
 <span style="color:red">GET</span> http://localhost:3210/ciclo **Obtiene TODOS los ciclos**
 
-<span style="color:red">GET</span> http://localhost:3210/tema **Obtiene TODOS los temas POR CURSO**
-
-```javascript
-  data = {
-    idCurso
-  }
-```
+<span style="color:red">GET</span> http://localhost:3210/tema **Obtiene TODOS los temas**
 
 <span style="color:red">GET</span> http://localhost:3210/horario **Obtiene TODOS los horarios POR CURSO**
 

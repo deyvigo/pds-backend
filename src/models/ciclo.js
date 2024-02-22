@@ -1,12 +1,12 @@
 const { connection } = require('./../services/connection.bd')
 
-const createOne = async ({ ciclo }) => {
+const createOne = async ({ ciclo, inicio, fin }) => {
   try {
     await connection.query(
-      'INSERT INTO ciclo (ciclo) VALUES (?)',
-      [ciclo]
+      'INSERT INTO ciclo (ciclo, inicio, fin) VALUES (?,?,?)',
+      [ciclo, inicio, fin]
     )
-    return { response: 'Reistro exitoso' }
+    return { response: 'Registro exitoso' }
   } catch (e) {
     console.error(e)
   }
@@ -15,7 +15,7 @@ const createOne = async ({ ciclo }) => {
 const getAll = async () => {
   try {
     const [response] = await connection.query(
-      'SELECT * FROM ciclo;'
+      'SELECT id_ciclo, ciclo, inicio, fin FROM ciclo;'
     )
     return response
   } catch (e) {

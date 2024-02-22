@@ -13,11 +13,10 @@ const insertOne = async ({ idCurso, nombre, descripcion }) => {
   }
 }
 
-const getByIdCourse = async ({ idCurso }) => {
+const getAllWithTheme = async () => {
   try {
     const [response] = await connection.query(
-      'SELECT id_tema, nombre, descripcion FROM tema WHERE id_curso_pertenece = ?;',
-      [idCurso]
+      'SELECT t.id_curso_pertenece, t.id_tema, t.nombre, t.descripcion FROM tema t JOIN curso c ON t.id_curso_pertenece = c.id_curso ORDER BY c.nombre;'
     )
     return response
   } catch (e) {
@@ -25,4 +24,4 @@ const getByIdCourse = async ({ idCurso }) => {
   }
 }
 
-module.exports = { insertOne, getByIdCourse }
+module.exports = { insertOne, getAllWithTheme }

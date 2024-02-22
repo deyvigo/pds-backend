@@ -1,15 +1,15 @@
-const { createOne, getAll } = require('./../models/curso')
+const { createOne, getAllCourses } = require('./../models/curso')
 const { getAllAdmin } = require('./../models/administrador')
 
 const createCourse = async (req, res) => {
   const { codigo, nombre, nivel, requisito, idCreador } = req.body
   const response = await createOne({ codigo, nombre, nivel, requisito, idCreador })
-  res.status(201)
+  res.status(200)
   res.send(response)
 }
 
-const getAllCourses = async (req, res) => {
-  const curso = await getAll()
+const getAllCoursesWithAdmin = async (req, res) => {
+  const curso = await getAllCourses()
   const profesor = await getAllAdmin()
   const data = [curso, profesor]
   const response = {
@@ -30,4 +30,4 @@ const getAllCourses = async (req, res) => {
   res.send(response)
 }
 
-module.exports = { createCourse, getAllCourses }
+module.exports = { createCourse, getAllCoursesWithAdmin }

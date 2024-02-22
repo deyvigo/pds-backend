@@ -1,5 +1,6 @@
-const { insertOne, getByCourse, changeStatusById, getHorarioByIdTeacher, getAllAlumnByHorario, getActivesByNivel } = require('./../models/horario')
-const { getAllActives } = require('./../models/profesor')
+const { insertOne, getAllHorario, changeStatusById, getHorarioByIdTeacher, getAllAlumnByHorario, getActivesByNivel } = require('./../models/horario')
+const { getAll, getAllActives } = require('./../models/profesor')
+const { getAllCourses } = require('./../models/curso')
 const { getByIdAlumn } = require('./../models/matricula')
 
 const createHorario = async (req, res) => {
@@ -10,26 +11,31 @@ const createHorario = async (req, res) => {
   res.send(response)
 }
 
-const getAllHorarioByCourse = async (req, res) => {
-  const { idCurso } = req.body
-  const horario = await getByCourse(idCurso)
-  const profesor = await getAllActives()
-  const data = [horario, profesor]
+const getAllHorarioWithCourses = async (req, res) => {
+  const horario = await getAllHorario()
+  const profesor = await getAll()
+  const curso = await getAllCourses()
   const response = {
-    horario: data[0].map(h => ({
-      id_horario: h.id_horario,
-      dia_semana: h.dia_semana,
-      estado: h.estado,
-      hora_inicio: h.hora_inicio,
-      hora_final: h.hora_final,
-      ciclo: h.ciclo,
-      profesor: data[1][0].filter(p => {
-        return p.id_profesor === h.id_profesor
-      }).map(p => ({
-        id_profesor: p.id_profesor,
-        nombres: p.nombres,
-        apellidos: p.apellidos
-      })).pop()
+    cursos: curso.map(c => ({
+      id_curso: c.id_curso,
+      nombre: c.nombre,
+      horarios: horario.filter(h => {
+        return h.id_curso === c.id_curso
+      }).map(h => ({
+        id_horario: h.id_horario,
+        estado: h.estado,
+        dia_semana: h.dia_semana,
+        hora_inicio: h.hora_inicio,
+        hora_final: h.hora_final,
+        ciclo: h.ciclo,
+        profesor: profesor.filter(p => {
+          return p.id_profesor === h.id_profesor_cargo
+        }).map(p => ({
+          id_profesor: p.id_profesor,
+          nombres: p.nombres,
+          apellidos: p.apellidos
+        }))
+      }))
     }))
   }
   res.send(response)
@@ -99,7 +105,7 @@ const getHorarioForMatricula = async (req, res) => {
 
 module.exports = {
   createHorario,
-  getAllHorarioByCourse,
+  getAllHorarioWithCourses,
   changeStatus,
   getAllHorarioByTeacher,
   getAlumnsByHorario,

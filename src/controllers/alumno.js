@@ -18,7 +18,7 @@ const registerStudent = async (req, res) => {
   // console.log({ nombres, apellidos, username, hashPass, rol })
   const userAlumn = await getAlumn(username)
   if (userAlumn.length !== 0) {
-    res.send({ error: 'User already exists' })
+    res.send({ error: 'El nombre de usuario ya existe' })
     return
   }
 

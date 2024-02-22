@@ -1,4 +1,5 @@
-const { insertOne, getByIdCourse } = require('./../models/tema')
+const { insertOne, getAllWithTheme } = require('./../models/tema')
+const { getAllCourses } = require('./../models/curso')
 
 const createOneTheme = async (req, res) => {
   const { idCurso, nombre, descripcion } = req.body
@@ -6,9 +7,16 @@ const createOneTheme = async (req, res) => {
   res.send(response)
 }
 
-const getAllByCourse = async (req, res) => {
-  const { idCurso } = req.body
-  const response = await getByIdCourse({ idCurso })
+const getAllThemesWithCourse = async (req, res) => {
+  const courses = await getAllCourses()
+  const themes = await getAllWithTheme()
+  const response = {
+    curso: courses.map(c => ({
+      nombre: c.nombre,
+      id_curso: c.id_curso,
+      temas: themes.filter(t => t.id_curso_pertenece === c.id_curso)
+    }))
+  }
   res.send(response)
 }
-module.exports = { createOneTheme, getAllByCourse }
+module.exports = { createOneTheme, getAllThemesWithCourse }

@@ -1,12 +1,20 @@
 const { Router } = require('express')
-const { createHorario, getAllHorarioByCourse, changeStatus, getAllHorarioByTeacher, getAlumnsByHorario, getHorarioForMatricula } = require('../controllers/horario')
-const { validateCreateHorario, validateChangeStatus, validateIdCourse, validateIdTeacher, validateIdHorario, validateNivel } = require('./../validators/horario')
+const {
+  createHorario,
+  changeStatus,
+  getAllHorarioByTeacher,
+  getAlumnsByHorario,
+  getHorarioForMatricula,
+  getAllHorarioWithCourses
+} = require('../controllers/horario')
+const { validateCreateHorario, validateChangeStatus, validateIdTeacher, validateIdHorario, validateNivel } = require('./../validators/horario')
+const { adminSession } = require('../middlewares/sessionValidator')
 
 const router = Router()
 
 router.post('/', validateCreateHorario, createHorario)
 
-router.get('/', validateIdCourse, getAllHorarioByCourse)
+router.get('/', adminSession, getAllHorarioWithCourses)
 
 router.put('/', validateChangeStatus, changeStatus)
 

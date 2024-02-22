@@ -16,12 +16,12 @@ const loginAlumn = async (req, res) => {
   }
   // Comparamos la contraseña proporcionada con la contraseña almacenada en la base de datos.
   const checkPass = await comparePass(password, response[0].password)
-  const { rol, id } = response[0]
+  const { rol, id, nombres } = response[0]
   // Si la contraseña es correcta, creamos un token JWT y lo enviamos junto con la información del usuario.
   if (checkPass) {
     const jwt = await createJwt({ id, username, rol })
     res.status(200)
-    res.send({ id, rol, username, token: jwt })
+    res.send({ id, rol, nombres, username, token: jwt })
   } else {
     // Si la contraseña es incorrecta, devolvemos un mensaje de error
     res.status(401)
@@ -40,11 +40,11 @@ const loginTeacher = async (req, res) => {
   }
   const checkPass = await comparePass(password, response[0].password)
   // console.log(response[0])
-  const { rol, id } = response[0]
+  const { rol, id, nombres } = response[0]
   if (checkPass) {
     const jwt = await createJwt({ id, username, rol })
     res.status(200)
-    res.send({ id, rol, username, token: jwt })
+    res.send({ id, nombres, rol, username, token: jwt })
   } else {
     res.status(401)
     res.send({ error: 'Invalid Password' })
@@ -62,11 +62,11 @@ const loginAdmin = async (req, res) => {
     return
   }
   const checkPass = await comparePass(password, response[0].password)
-  const { rol, id } = response[0]
+  const { rol, id, nombres } = response[0]
   if (checkPass) {
     const jwt = await createJwt({ id, username, rol })
     res.status(200)
-    res.send({ id, rol, username, token: jwt })
+    res.send({ id, nombres, rol, username, token: jwt })
   } else {
     res.status(401)
     res.send({ error: 'Invalid Password' })

@@ -1,6 +1,6 @@
 // Importamos los módulos necesarios, incluyendo modelos de base de datos para operaciones con profesores,
 // la función para cifrar contraseñas y la función para obtener información de inicio de sesión de profesores.
-const { getAll, insertOne, updateStatusById } = require('../models/profesor')
+const { getAll, insertOne, updateStatusById, getAllActives } = require('../models/profesor')
 const { encryptPass } = require('../helpers/bcrypt')
 const { getTeacher } = require('./../models/login')
 
@@ -17,7 +17,7 @@ const registerTeacher = async (req, res) => {
   // console.log({ nombres, apellidos, username, hashPass, estado, rol })
   const userTeacher = await getTeacher(username)
   if (userTeacher.length !== 0) {
-    res.send({ error: 'User already exists' })
+    res.send({ error: 'El nombre de usuario ya existe' })
     return
   }
   // Insertamos los datos del nuevo profesor en la base de datos.
@@ -34,4 +34,9 @@ const grantPermitToTeacherAccount = async (req, res) => {
   res.send(response)
 }
 
-module.exports = { getAllTeachers, registerTeacher, grantPermitToTeacherAccount }
+const getAllActivesTeachers = async (req, res) => {
+  const response = await getAllActives()
+  res.send(response)
+}
+
+module.exports = { getAllTeachers, registerTeacher, grantPermitToTeacherAccount, getAllActivesTeachers }

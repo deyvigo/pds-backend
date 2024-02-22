@@ -1,8 +1,9 @@
 const { createOne, getAll } = require('./../models/ciclo')
 
 const createCicle = async (req, res) => {
-  const { ciclo } = req.body
-  const response = await createOne({ ciclo })
+  const { ciclo, inicio, fin } = req.body
+  const response = await createOne({ ciclo, inicio, fin })
+  res.status(200)
   res.send(response)
 }
 
