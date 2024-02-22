@@ -28,7 +28,7 @@ const registerNotes = async (req, res) => {
 }
 
 const getStatsByAlumn = async (req, res) => {
-  const { idAlumno } = req.body
+  const { idAlumno } = req.params
   const data = await getCourseCompletedByAlumn({ idAlumno }) // id_curso, nombre (estado de horario = finalizado)
   // data[1] = curso en el que está matriculado
 
@@ -41,6 +41,10 @@ const getStatsByAlumn = async (req, res) => {
     curso: data[0].map(d => ({
       id_curso: d.id_curso,
       nombre: d.nombre,
+      nivel: d.nivel,
+      profesor: `${d.nombres} ${d.apellidos}`,
+      promedio: '10.4', // corregir cuando la bd esté mejor organizada
+      ciclo: d.ciclo,
       temas: data[1].filter(t => {
         return t.id_curso_pertenece === d.id_curso
       }).map(t => ({

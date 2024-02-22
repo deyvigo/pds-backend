@@ -70,7 +70,7 @@ const getAlumnsByHorario = async (req, res) => {
 }
 
 const getHorarioForMatricula = async (req, res) => {
-  const { nivel, idAlumno } = req.body
+  const { nivel, idAlumno } = req.params
   const matriculas = await getByIdAlumn({ idAlumno }) // verifica si ya hay matrículas activas o en curso
 
   if (matriculas.length > 0) {
@@ -81,7 +81,7 @@ const getHorarioForMatricula = async (req, res) => {
   const profesor = await getAllActives()
 
   const response = {
-    horario: horario.map(h => ({
+    horarios: horario.map(h => ({
       id_horario: h.id_horario,
       estado: h.estado,
       dia_semana: h.dia_semana,

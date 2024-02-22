@@ -16,7 +16,7 @@ const createNotesForAll = async (values) => {
 const getCourseCompletedByAlumn = async ({ idAlumno }) => {
   try {
     const [curso] = await connection.query(
-      'SELECT DISTINCT h.id_curso, c.nombre FROM alumno_horario ah JOIN horario h ON h.id_horario = ah.id_horario JOIN curso c ON c.id_curso = h.id_curso WHERE h.estado = "finalizado" AND ah.id_alumn = ?;',
+      'SELECT DISTINCT h.id_curso, c.nombre, c.nivel, p.nombres, p.apellidos, ci.ciclo FROM alumno_horario ah JOIN horario h ON h.id_horario = ah.id_horario JOIN curso c ON c.id_curso = h.id_curso JOIN profesor p ON p.id_profesor = h.id_profesor_cargo JOIN ciclo ci ON ci.id_ciclo = h.ciclo_id WHERE h.estado = "finalizado" AND ah.id_alumn = ?;',
       [idAlumno]
     )
     const [temas] = await connection.query(

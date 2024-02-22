@@ -3,7 +3,7 @@ const { connection } = require('../services/connection.bd')
 const getAlumn = async (username) => {
   try {
     const [alumno] = await connection.query(
-      'SELECT id_alumno as id, nombres, apellidos, username, password, rol FROM alumno a JOIN rol r ON a.al_rol = r.id_rol WHERE username = ?;',
+      'SELECT id_alumno as id, nombres, apellidos, username, password, nivel, rol FROM alumno a JOIN rol r ON a.al_rol = r.id_rol WHERE username = ?;',
       [username]
     )
     return alumno
