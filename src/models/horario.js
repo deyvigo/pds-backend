@@ -67,7 +67,7 @@ const getHorarioByIdTeacher = async ({ idProfesor }) => {
 const getAllAlumnByHorario = async ({ idHorario }) => {
   try {
     const [response] = await connection.query(
-      'SELECT ah.id_alumno_horario, a.nombres, a.apellidos FROM alumno_horario ah JOIN alumno a ON ah.id_alumn = a.id_alumno JOIN horario h ON h.id_horario = ah.id_horario WHERE ah.id_horario = ?',
+      'SELECT h.id_horario, a.id_alumno, a.nombres, a.apellidos FROM alumno_horario ah JOIN alumno a ON ah.id_alumn = a.id_alumno JOIN horario h ON h.id_horario = ah.id_horario WHERE ah.id_horario = ?',
       [idHorario]
     )
     return response

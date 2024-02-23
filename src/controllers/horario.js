@@ -48,7 +48,7 @@ const changeStatus = async (req, res) => {
 }
 
 const getAllHorarioByTeacher = async (req, res) => {
-  const { idProfesor } = req.body
+  const { idProfesor } = req.params
   const response = await getHorarioByIdTeacher({ idProfesor })
   if (response.length === 0) {
     res.status(404)
@@ -59,7 +59,7 @@ const getAllHorarioByTeacher = async (req, res) => {
 }
 
 const getAlumnsByHorario = async (req, res) => {
-  const { idHorario } = req.body
+  const { idHorario } = req.params
   const response = await getAllAlumnByHorario({ idHorario })
   if (response.length === 0) {
     res.status(404)

@@ -17,10 +17,6 @@ const validateAsist = [
     .isNumeric(),
   check('data.*.asistencia')
     .isIn(asistArray),
-  check('data.*.fecha')
-    .exists()
-    .notEmpty()
-    .isISO8601(),
   (req, res, next) => validateResults(req, res, next)
 ]
 
