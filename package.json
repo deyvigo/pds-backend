@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@napi-rs/canvas": "^0.1.50",
     "bcrypt": "^5.1.1",
+    "canvas-constructor": "^7.0.1",
     "cors": "2.8.5",
     "express": "4.18.2",
     "express-validator": "^7.0.1",

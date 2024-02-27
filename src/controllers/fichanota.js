@@ -39,9 +39,12 @@ const getStatsByAlumn = async (req, res) => {
   }
 
   const response = data[0].map(c => ({
+    id_curso: c.id_curso,
     curso: c.nombre,
     nivel: c.nivel,
     ciclo: c.ciclo,
+    fecha_inicio: c.fecha_inicio,
+    fecha_final: c.fecha_final,
     profesor: `${c.nombres} ${c.apellidos}`,
     promedio: data[1].filter(t => {
       return t.id_curso_pertenece === c.id_curso
