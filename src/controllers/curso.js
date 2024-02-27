@@ -1,4 +1,4 @@
-const { createOne, getAllCourses } = require('./../models/curso')
+const { createOne, getAllCourses, getAllCoursesByIdProfesor } = require('./../models/curso')
 const { getAllAdmin } = require('./../models/administrador')
 
 const createCourse = async (req, res) => {
@@ -30,4 +30,15 @@ const getAllCoursesWithAdmin = async (req, res) => {
   res.send(response)
 }
 
-module.exports = { createCourse, getAllCoursesWithAdmin }
+const getAllCoursesForTeacher = async (req, res) => {
+  const { idProfesor } = req.params
+  const cursos = await getAllCoursesByIdProfesor({ idProfesor })
+  if (cursos.length === 0) {
+    res.status(404)
+    res.send({ error: 'No se encontraron cursos' })
+    return
+  }
+  res.send(cursos)
+}
+
+module.exports = { createCourse, getAllCoursesWithAdmin, getAllCoursesForTeacher }

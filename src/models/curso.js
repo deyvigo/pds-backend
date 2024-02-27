@@ -28,4 +28,17 @@ const getAllCourses = async () => {
   }
 }
 
-module.exports = { createOne, getAllCourses }
+const getAllCoursesByIdProfesor = async ({ idProfesor }) => {
+  try {
+    const [response] = await connection.query(
+      'SELECT DISTINCT(c.nombre) as curso, p.nombres as profesor, c.id_curso, p.id_profesor FROM horario h JOIN profesor p ON p.id_profesor = h.id_profesor_cargo JOIN curso c ON c.id_curso = h.id_curso WHERE p.id_profesor = ? AND h.estado = "en curso";',
+      [idProfesor]
+    )
+    return response
+  } catch (e) {
+    console.error(e)
+    throw e
+  }
+}
+
+module.exports = { createOne, getAllCourses, getAllCoursesByIdProfesor }

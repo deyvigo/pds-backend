@@ -6,8 +6,8 @@ const registerNotes = async (req, res) => {
     const { data } = req.body
 
     const valuesFN = data.map(d => ([
-      Math.round(0.4 * d.notaEvaEscrita + 0.2 * d.notaEvaOral + 0.4 * (d.puntosTiempo + d.puntosContenido + d.puntosHabComu + d.puntosEstructura)),
-      d.notaEvaOral, d.notaEvaEscrita, d.idTema, d.idCiclo, d.idAlumno
+      Math.round(0.4 * parseInt(d.notaEvaEscrita) + 0.2 * parseInt(d.notaEvaOral) + 0.4 * (parseInt(d.puntosTiempo) + parseInt(d.puntosContenido) + parseInt(d.puntosHabComu) + parseInt(d.puntosEstructura))),
+      d.notaEvaOral, d.notaEvaEscrita, d.idTema, d.idCiclo, d.idAlumno, d.idProfesor
     ]))
 
     const index = await createNotesForAll(valuesFN)

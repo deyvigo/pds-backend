@@ -1,4 +1,4 @@
-const { insertOne, getAllWithTheme } = require('./../models/tema')
+const { insertOne, getAllWithTheme, getAllByIdCourseWithNoRepetitions } = require('./../models/tema')
 const { getAllCourses } = require('./../models/curso')
 
 const createOneTheme = async (req, res) => {
@@ -19,4 +19,12 @@ const getAllThemesWithCourse = async (req, res) => {
   }
   res.send(response)
 }
-module.exports = { createOneTheme, getAllThemesWithCourse }
+
+const getAllThemesByCourse = async (req, res) => {
+  const { idCurso, idProfesor } = req.params
+  console.log(idCurso)
+  const response = await getAllByIdCourseWithNoRepetitions({ idCurso, idProfesor })
+  res.send(response)
+}
+
+module.exports = { createOneTheme, getAllThemesWithCourse, getAllThemesByCourse }

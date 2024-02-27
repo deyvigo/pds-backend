@@ -3,7 +3,7 @@ const { connection } = require('./../services/connection.bd')
 const createNotesForAll = async (values) => {
   try {
     const response = await connection.query(
-      'INSERT INTO ficha_nota (nota_final, nota_eva_oral, nota_eva_escrita, id_tema, id_ciclo, id_alumno) VALUES ?;',
+      'INSERT INTO ficha_nota (nota_final, nota_eva_oral, nota_eva_escrita, id_tema, id_ciclo, id_alumno, profesor_id) VALUES ?;',
       [values]
     )
     return response
