@@ -32,13 +32,13 @@ const insertOne = async ({ nombres, apellidos, nivel, username, hashPass, rol })
   }
 }
 
-const changeLevelByUsername = async ({ username, nivel }) => {
+const changeLevelById = async (nivel, values) => {
   try {
-    await connection.execute(
-      'UPDATE alumno SET nivel = ? WHERE username = ?;',
-      [nivel, username]
+    const response = await connection.query(
+      'UPDATE alumno SET nivel = ? WHERE id_alumno IN (?);',
+      [nivel, values]
     )
-    return { response: 'Level updated' }
+    return response
   } catch (e) {
     console.error(e)
   }
@@ -69,4 +69,4 @@ const getAllByIdCourseAndIdProfesor = async ({ idCurso, idProfesor }) => {
   }
 }
 
-module.exports = { getAll, insertOne, changeLevelByUsername, getById, getAllByIdCourseAndIdProfesor }
+module.exports = { getAll, insertOne, changeLevelById, getById, getAllByIdCourseAndIdProfesor }

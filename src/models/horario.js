@@ -29,7 +29,7 @@ const getByCourse = async (id) => {
 const getAllHorario = async () => {
   try {
     const [horario] = await connection.query(
-      'SELECT h.id_horario, h.dia_semana, h.hora_inicio, h.hora_final, h.estado, c.ciclo, h.id_profesor_cargo, h.id_curso FROM horario h JOIN ciclo c ON c.id_ciclo = h.ciclo_id;'
+      'SELECT h.id_horario, h.dia_semana, h.hora_inicio, h.hora_final, h.estado, c.ciclo, c.id_ciclo, h.id_profesor_cargo, h.id_curso FROM horario h JOIN ciclo c ON c.id_ciclo = h.ciclo_id;'
     )
     return horario
   } catch (e) {

@@ -1,6 +1,6 @@
 const { Router } = require('express')
-const { getAllStudents, registerStudent, changeNivel, getAlumnsForNotes } = require('../controllers/alumno')
-const { validateCreateStudent, validateChangeNivel } = require('../validators/alumno')
+const { getAllStudents, registerStudent, getAlumnsForNotes } = require('../controllers/alumno')
+const { validateCreateStudent } = require('../validators/alumno')
 
 const router = Router()
 
@@ -8,7 +8,7 @@ router.get('/', getAllStudents)
 
 router.post('/', validateCreateStudent, registerStudent)
 
-router.put('/', validateChangeNivel, changeNivel)
+// router.put('/', validateChangeNivel, changeNivel)
 
 router.get('/curso/:idCurso/:idProfesor', getAlumnsForNotes)
 

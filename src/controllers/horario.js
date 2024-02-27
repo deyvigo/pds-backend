@@ -2,6 +2,8 @@ const { insertOne, getAllHorario, changeStatusById, getHorarioByIdTeacher, getAl
 const { getAll, getAllActives } = require('./../models/profesor')
 const { getAllCourses } = require('./../models/curso')
 const { getByIdAlumn } = require('./../models/matricula')
+const { getFinalAverages } = require('./../models/fichanota')
+const { changeLevelById } = require('./../models/alumno')
 
 const createHorario = async (req, res) => {
   const { dia, estado, horaInicio, horaFinal, ciclo, idProfesor, idCurso } = req.body
@@ -27,6 +29,7 @@ const getAllHorarioWithCourses = async (req, res) => {
         dia_semana: h.dia_semana,
         hora_inicio: h.hora_inicio,
         hora_final: h.hora_final,
+        id_ciclo: h.id_ciclo,
         ciclo: h.ciclo,
         profesor: profesor.filter(p => {
           return p.id_profesor === h.id_profesor_cargo
@@ -42,7 +45,32 @@ const getAllHorarioWithCourses = async (req, res) => {
 }
 
 const changeStatus = async (req, res) => {
-  const { idHorario, estado } = req.body
+  const { idHorario, idCiclo, estado } = req.body
+
+  if (estado === 'finalizado') {
+    const averages = await getFinalAverages({ idHorario, idCiclo })
+    if (averages.length === 0) {
+      res.status(404)
+      res.send({ response: 'No hay alumnos matriculados' })
+      return
+    }
+    const nivel = averages[0].nivel
+    const aproved = averages.filter(a => a.promedio >= 10.5).map(a => (a.id_alumno))
+    console.log(averages)
+    if (aproved.length > 0) {
+      const response = await changeLevelById(nivel + 1, aproved)
+      console.log(response) // verificar si se cambió el nivel
+    }
+
+    if (aproved.length === 0) {
+      console.log('No hay alumnos aprobados')
+    }
+
+    const change = await changeStatusById({ idHorario, estado })
+    res.send(change)
+    return
+  }
+
   const response = await changeStatusById({ idHorario, estado })
   res.send(response)
 }

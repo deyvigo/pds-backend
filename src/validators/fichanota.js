@@ -13,6 +13,10 @@ const validateFileNotes = [
     .exists()
     .notEmpty()
     .isNumeric(),
+  check('data.*.idProfesor')
+    .exists()
+    .notEmpty()
+    .isNumeric(),
   check('data.*.idCiclo')
     .exists()
     .notEmpty()

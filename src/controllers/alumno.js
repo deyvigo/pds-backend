@@ -1,6 +1,6 @@
 // Importamos los módulos necesarios, incluyendo modelos de base de datos para operaciones con alumnos,
 // la función para cifrar contraseñas y la función para obtener información sobre alumnos existentes.
-const { getAll, insertOne, changeLevelByUsername, getAllByIdCourseAndIdProfesor } = require('../models/alumno')
+const { getAll, insertOne, getAllByIdCourseAndIdProfesor } = require('../models/alumno')
 const { encryptPass } = require('../helpers/bcrypt')
 const { getAlumn } = require('./../models/login')
 
@@ -29,12 +29,12 @@ const registerStudent = async (req, res) => {
 }
 
 // Función para cambiar el nivel de estudiantes
-const changeNivel = async (req, res) => {
-  const { username, nivel } = req.body
-  const response = await changeLevelByUsername({ username, nivel })
-  res.status(200)
-  res.send(response)
-}
+// const changeNivel = async (req, res) => {
+//   const { idAlumno, nivel } = req.body
+//   const response = await changeLevelByUsername(values)
+//   res.status(200)
+//   res.send(response)
+// }
 
 const getAlumnsForNotes = async (req, res) => {
   const { idProfesor } = req.params
@@ -44,4 +44,4 @@ const getAlumnsForNotes = async (req, res) => {
 }
 
 // Exportamos las funciones
-module.exports = { getAllStudents, registerStudent, changeNivel, getAlumnsForNotes }
+module.exports = { getAllStudents, registerStudent, getAlumnsForNotes }

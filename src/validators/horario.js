@@ -36,6 +36,10 @@ const validateChangeStatus = [
     .exists()
     .notEmpty()
     .isNumeric(),
+  check('idCiclo')
+    .exists()
+    .notEmpty()
+    .isNumeric(),
   check('estado')
     .isIn(ESTADO),
   (req, res, next) => validateResults(req, res, next)

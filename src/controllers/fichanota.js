@@ -37,39 +37,28 @@ const getStatsByAlumn = async (req, res) => {
     res.send({ repsonse: 'No tienes cursos finalizados' })
     return
   }
-  const response = {
-    curso: data[0].map(d => ({
-      id_curso: d.id_curso,
-      nombre: d.nombre,
-      nivel: d.nivel,
-      profesor: `${d.nombres} ${d.apellidos}`,
-      promedio: '10.4', // corregir cuando la bd esté mejor organizada
-      ciclo: d.ciclo,
-      temas: data[1].filter(t => {
-        return t.id_curso_pertenece === d.id_curso
-      }).map(t => ({
-        id_curso_pertenece: t.id_curso_pertenece,
-        id_tema: t.id_tema,
-        nombre: t.nombre,
-        descripcion: t.descripcion,
-        notas: data[2].filter(n => {
-          return n.id_tema === t.id_tema
-        }).map(n => ({
-          id_tema: n.id_tema,
-          ciclo: n.ciclo,
-          nota_eva_escrita: n.nota_eva_escrita,
-          nota_eva_oral: n.nota_eva_oral,
-          nota_final: n.nota_final,
-          nota_exposicion: {
-            puntos_contenido: n.puntos_contenido,
-            puntos_estructura: n.puntos_estructura,
-            puntos_hab_comu: n.puntos_hab_comu,
-            puntos_tiempo: n.puntos_tiempo
-          }
-        }))
-      }))
+
+  const response = data[0].map(c => ({
+    curso: c.nombre,
+    nivel: c.nivel,
+    ciclo: c.ciclo,
+    profesor: `${c.nombres} ${c.apellidos}`,
+    promedio: data[1].filter(t => {
+      return t.id_curso_pertenece === c.id_curso
+    }).reduce((acc, t) => {
+      return acc + t.nota_final
+    }, 0) / data[1].filter(t => {
+      return t.id_curso_pertenece === c.id_curso
+    }).length,
+    temas: data[1].filter(t => {
+      return t.id_curso_pertenece === c.id_curso
+    }).map(t => ({
+      tema: t.nombre,
+      id_tema: t.id_tema,
+      nota: t.nota_final
     }))
-  }
+  }))
+
   res.send(response)
 }
 
