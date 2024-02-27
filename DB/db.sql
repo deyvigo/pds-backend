@@ -143,8 +143,11 @@ create table ficha_nota
     id_tema          int not null,
     id_ciclo         int not null,
     id_alumno        int not null,
+    profesor_id      int not null,
     constraint ficha_nota_ciclo_id_ciclo_fk
         foreign key (id_ciclo) references ciclo (id_ciclo),
+    constraint ficha_nota_profesor_id_profesor_fk
+        foreign key (profesor_id) references profesor (id_profesor),
     constraint id_alumno
         foreign key (id_alumno) references alumno (id_alumno),
     constraint id_tema
