@@ -42,20 +42,22 @@ const getStatsByAlumn = async (req, res) => {
     id_curso: c.id_curso,
     curso: c.nombre,
     nivel: c.nivel,
+    id_ciclo: c.id_ciclo,
     ciclo: c.ciclo,
     fecha_inicio: c.fecha_inicio,
     fecha_final: c.fecha_final,
     profesor: `${c.nombres} ${c.apellidos}`,
     promedio: data[1].filter(t => {
-      return t.id_curso_pertenece === c.id_curso
+      return t.id_curso_pertenece === c.id_curso && t.id_ciclo === c.id_ciclo
     }).reduce((acc, t) => {
       return acc + t.nota_final
     }, 0) / data[1].filter(t => {
-      return t.id_curso_pertenece === c.id_curso
+      return t.id_curso_pertenece === c.id_curso && t.id_ciclo === c.id_ciclo
     }).length,
     temas: data[1].filter(t => {
-      return t.id_curso_pertenece === c.id_curso
+      return t.id_curso_pertenece === c.id_curso && t.id_ciclo === c.id_ciclo
     }).map(t => ({
+      id_ciclo: t.id_ciclo,
       tema: t.nombre,
       id_tema: t.id_tema,
       nota: t.nota_final
